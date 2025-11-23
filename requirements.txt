@@ -1,0 +1,7 @@
+flask
+pillow
+pandas
+markdown
+openpyxl
+pyyaml
+xlrd

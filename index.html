@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal File Converter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #4a90e2;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        select, input[type="file"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #357abd;
+        }
+        .messages {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>File Converter</h1>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="messages error">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form action="/" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="conversion_type">Select Conversion:</label>
+                <select name="conversion_type" id="conversion_type">
+                    <optgroup label="Images">
+                        <option value="png_to_jpg">PNG to JPG</option>
+                        <option value="jpg_to_png">JPG to PNG</option>
+                        <option value="to_webp">Image to WebP</option>
+                        <option value="webp_to_png">WebP to PNG</option>
+                        <option value="image_to_pdf">Image to PDF</option>
+                    </optgroup>
+                    <optgroup label="Data">
+                        <option value="csv_to_json">CSV to JSON</option>
+                        <option value="json_to_csv">JSON to CSV</option>
+                        <option value="csv_to_excel">CSV to Excel</option>
+                        <option value="excel_to_csv">Excel to CSV</option>
+                        <option value="json_to_excel">JSON to Excel</option>
+                        <option value="excel_to_json">Excel to JSON</option>
+                    </optgroup>
+                    <optgroup label="Config">
+                        <option value="json_to_yaml">JSON to YAML</option>
+                        <option value="yaml_to_json">YAML to JSON</option>
+                    </optgroup>
+                    <optgroup label="Documents">
+                        <option value="md_to_html">Markdown to HTML</option>
+                    </optgroup>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="file">Upload File:</label>
+                <input type="file" name="file" id="file" required>
+            </div>
+            
+            <button type="submit">Convert & Download</button>
+        </form>
+    </div>
+</body>
+</html>
